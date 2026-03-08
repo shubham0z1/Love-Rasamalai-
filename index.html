@@ -109,7 +109,7 @@ animation:burst 3s linear forwards;
 
 <body>
 
-<audio autoplay loop>
+<audio id="bgmusic" loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -255,3 +255,13 @@ setTimeout(()=>{heart.remove()},3000)
 
 </body>
 </html>
+const music = document.getElementById("bgmusic");
+
+function startMusic(){
+music.play();
+document.removeEventListener("click", startMusic);
+document.removeEventListener("scroll", startMusic);
+}
+
+document.addEventListener("click", startMusic);
+document.addEventListener("scroll", startMusic);
