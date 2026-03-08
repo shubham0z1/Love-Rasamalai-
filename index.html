@@ -1,48 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Story ❤️</title>
-
-<style>
+<title>Our Story ❤️</title><link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet"><style>
 
 body{
 margin:0;
-font-family:sans-serif;
-background:linear-gradient(180deg,#ffdde1,#ee9ca7);
+background:#020111;
 color:white;
-text-align:center;
+font-family:'Playfair Display',serif;
 overflow-x:hidden;
 }
 
-/* start screen */
+/* GALAXY BACKGROUND */
+
+.sky{
+position:fixed;
+width:100%;
+height:100%;
+background:radial-gradient(circle at 30% 30%,#0b1a3a,#020111);
+z-index:-2;
+}
+
+.stars{
+position:fixed;
+width:100%;
+height:100%;
+background:url("https://www.transparenttextures.com/patterns/stardust.png");
+animation:moveStars 60s linear infinite;
+z-index:-1;
+}
+
+@keyframes moveStars{
+0%{transform:translateY(0)}
+100%{transform:translateY(-1000px)}
+}
+
+/* START SCREEN */
 
 #startScreen{
 position:fixed;
-top:0;
-left:0;
-height:100vh;
 width:100%;
+height:100%;
 background:black;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
+cursor:pointer;
 z-index:10;
 }
 
-#startBtn{
-padding:15px 30px;
-border:none;
-border-radius:30px;
-background:#ff4da6;
-color:white;
-font-size:18px;
-cursor:pointer;
+#startScreen h1{
+font-family:'Great Vibes',cursive;
+font-size:50px;
+color:#ff4d6d;
 }
 
-/* sections */
+/* SECTION */
 
 .section{
 height:100vh;
@@ -50,335 +64,298 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+text-align:center;
 padding:20px;
-opacity:0;
-transform:translateY(40px);
-transition:1s;
 }
 
-.section.show{
-opacity:1;
-transform:translateY(0);
-}
+/* POLAROID */
 
-/* polaroid photos */
-
-.photo{
-width:260px;
+.polaroid{
 background:white;
-padding:10px;
+padding:12px;
 border-radius:8px;
-box-shadow:0 15px 30px rgba(0,0,0,0.4);
-transform:rotateY(90deg);
+transform:rotate(-5deg) scale(.7);
+opacity:0;
 transition:1s;
-margin-top:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.6);
 }
 
-.photo img{
-width:100%;
+.polaroid img{
+width:260px;
 border-radius:5px;
 }
 
-.photo.reveal{
-transform:rotateY(0deg);
+.polaroid.show{
+opacity:1;
+transform:rotate(0) scale(1);
 }
 
-/* text */
+/* MESSAGE */
 
-p{
-max-width:420px;
-font-size:18px;
-line-height:1.6;
-min-height:90px;
+.message{
+margin-top:25px;
+font-family:'Great Vibes',cursive;
+font-size:34px;
+max-width:700px;
+color:#ffd1dc;
+min-height:120px;
 }
 
-/* button */
+/* HEARTBEAT */
+
+@keyframes beat{
+0%{transform:scale(1)}
+50%{transform:scale(1.05)}
+100%{transform:scale(1)}
+}
+
+.section.active{
+animation:beat 2s infinite;
+}
+
+/* CONSTELLATION */
+
+.constellation-title{
+font-family:'Great Vibes',cursive;
+font-size:36px;
+color:#ffd1dc;
+margin-bottom:50px;
+}
+
+.sky-map{
+position:relative;
+width:500px;
+height:500px;
+}
+
+.star-photo{
+width:80px;
+height:80px;
+border-radius:50%;
+position:absolute;
+box-shadow:0 0 25px #ff4d6d;
+opacity:0;
+transform:scale(.5);
+transition:2s;
+}
+
+.star-photo.show{
+opacity:1;
+transform:scale(1);
+}
+
+.s1{top:180px;left:120px;}
+.s2{top:80px;left:250px;}
+.s3{top:180px;left:380px;}
+
+.lines{
+position:absolute;
+width:100%;
+height:100%;
+stroke:#ff4d6d;
+stroke-width:2;
+fill:none;
+opacity:0;
+transition:2s;
+}
+
+.lines.show{
+opacity:1;
+}
+
+/* BUTTON */
 
 button{
-padding:14px 28px;
+margin-top:40px;
+padding:15px 30px;
 border:none;
 border-radius:30px;
-background:white;
-color:#e91e63;
-font-size:16px;
+background:#ff4d6d;
+color:white;
+font-size:18px;
 cursor:pointer;
-margin-top:20px;
+box-shadow:0 0 15px #ff4d6d;
 }
 
-/* neon message */
-
-.neon{
-font-size:34px;
-text-shadow:
-0 0 5px #ff4da6,
-0 0 10px #ff4da6,
-0 0 20px #ff4da6,
-0 0 40px #ff4da6;
-animation:glow 1.5s infinite alternate;
-}
-
-@keyframes glow{
-from{text-shadow:0 0 10px #ff4da6}
-to{text-shadow:0 0 30px #ff1a75}
-}
-
-/* starry sky scene */
-
-#stars{
-display:none;
-position:relative;
-width:100%;
-height:300px;
-margin-top:30px;
-}
-
-.star{
-position:absolute;
-width:4px;
-height:4px;
-background:white;
-border-radius:50%;
-animation:twinkle 2s infinite alternate;
-}
-
-@keyframes twinkle{
-from{opacity:0.2}
-to{opacity:1}
-}
-
-/* hug silhouettes */
-
-#hugScene{
-display:none;
-height:200px;
-margin-top:20px;
-position:relative;
-}
-
-.person{
-width:70px;
-height:150px;
-background:white;
-border-radius:40px;
-position:absolute;
-bottom:0;
-}
-
-#p1{
-left:35%;
-animation:move1 2s forwards;
-}
-
-#p2{
-right:35%;
-animation:move2 2s forwards;
-}
-
-@keyframes move1{
-to{left:48%}
-}
-
-@keyframes move2{
-to{right:48%}
-}
-
-/* hearts */
+/* HEART BURST */
 
 .heart{
-position:absolute;
-font-size:22px;
-animation:burst 3s linear forwards;
+position:fixed;
+color:red;
+animation:fall linear forwards;
 }
 
-@keyframes burst{
-0%{transform:translateY(0) scale(0.5);opacity:1}
-100%{transform:translateY(-800px) scale(1.5);opacity:0}
+@keyframes fall{
+0%{transform:translateY(-50px);opacity:1}
+100%{transform:translateY(100vh);opacity:0}
 }
 
-</style>
-</head>
+/* HUG */
 
-<body>
+.hug{
+font-size:80px;
+opacity:0;
+transition:2s;
+}
 
-<div id="startScreen">
-<h1>For Rasamalai ❤️</h1>
-<p>Tap to start our story</p>
-<button id="startBtn">Start</button>
-</div>
+.hug.show{
+opacity:1;
+}
 
-<audio id="music" loop>
+/* FINAL NAME */
+
+.final-name{
+font-family:'Great Vibes',cursive;
+font-size:70px;
+color:#ffccd5;
+opacity:0;
+transition:3s;
+}
+
+.final-name.show{
+opacity:1;
+}
+
+</style></head><body><div class="sky"></div>
+<div class="stars"></div><div id="startScreen">
+<h1>Tap to start our story ❤️</h1>
+<p>Put on headphones</p>
+</div><audio id="music" loop>
 <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<div class="section">
-<h1>Hi Rasamalai ❤️</h1>
-<p id="intro"></p>
-</div>
-
-<div class="section">
-<div class="photo" id="photo1">
+</audio><!-- SCENE 1 --><div class="section"><div class="polaroid">
 <img src="photo1.jpg">
-</div>
-<p id="text1"></p>
-</div>
-
-<div class="section">
-<div class="photo" id="photo2">
+</div><div class="message" id="msg1"></div></div><!-- SCENE 2 --><div class="section"><div class="polaroid">
 <img src="photo2.jpg">
-</div>
-<p id="text2"></p>
-</div>
-
-<div class="section">
-<div class="photo" id="photo3">
+</div><div class="message" id="msg2"></div></div><!-- SCENE 3 --><div class="section"><div class="polaroid">
 <img src="photo3.jpg">
-</div>
-<p id="text3"></p>
-</div>
+</div><div class="message" id="msg3"></div></div><!-- CONSTELLATION --><div class="section constellation"><h2 class="constellation-title">
+If you made it this far…  
+<br><br>
+it means you matter to me more than you realize.
+</h2><div class="sky-map"><img src="photo1.jpg" class="star-photo s1">
+<img src="photo2.jpg" class="star-photo s2">
+<img src="photo3.jpg" class="star-photo s3"><svg class="lines" viewBox="0 0 500 500">
+<line x1="120" y1="180" x2="250" y2="80"/>
+<line x1="250" y1="80" x2="380" y2="180"/>
+<line x1="120" y1="180" x2="250" y2="350"/>
+<line x1="380" y1="180" x2="250" y2="350"/>
+</svg></div></div><!-- END --><div class="section"><h2 style="font-family:'Great Vibes';font-size:40px;color:#ff4d6d">
+Choose the fate of this relationship
+</h2><button onclick="choose()">Choose</button>
 
-<div class="section">
+<div id="result" class="message"></div><div class="hug" id="hug">🫂</div><div class="final-name" id="name">
+You Are My Universe ❤️
+</div></div><script>
 
-<h2>Choose the fate of this relationship</h2>
-<button onclick="ending()">Choose</button>
+/* START */
 
-<div id="stars"></div>
-
-<div id="hugScene">
-<div class="person" id="p1"></div>
-<div class="person" id="p2"></div>
-</div>
-
-<p id="final"></p>
-
-</div>
-
-<script>
-
+const start=document.getElementById("startScreen")
 const music=document.getElementById("music")
 
-document.getElementById("startBtn").onclick=function(){
-
+start.onclick=()=>{
+start.style.display="none"
 music.play()
-
-document.getElementById("startScreen").style.display="none"
-
-typeWriter("Scroll slowly… I want to show you something.",intro)
-
 }
 
-/* scroll animation */
+/* TYPEWRITER */
 
-const sections=document.querySelectorAll(".section")
-
-window.addEventListener("scroll",()=>{
-sections.forEach(section=>{
-const top=section.getBoundingClientRect().top
-if(top<window.innerHeight-100){
-section.classList.add("show")
-}
-})
-})
-
-/* typing effect */
-
-function typeWriter(text,element,speed=35){
+function typeText(text,element){
 let i=0
-function type(){
-if(i<text.length){
+let interval=setInterval(()=>{
 element.innerHTML+=text.charAt(i)
 i++
-setTimeout(type,speed)
-}
-}
-type()
+if(i>=text.length) clearInterval(interval)
+},40)
 }
 
-/* timeline text */
+/* TEXT */
 
-setTimeout(()=>{
-photo1.classList.add("reveal")
-typeWriter("This photo looks simple… but it’s actually the moment my life quietly changed. I didn’t know it then, but the girl in this picture would become someone I’d care about more than I expected.",text1)
-},2000)
+const m1=`This photo looks simple… but it’s actually the moment my life quietly changed.
 
-setTimeout(()=>{
-photo2.classList.add("reveal")
-typeWriter("This was the moment I started feeling romantically for you and my heart started to lose its track and it started to beat for only one person and that's you my baby ❤️",text2)
-},4000)
+I didn’t know it then, but the girl in this picture would become someone I’d care about more than I expected.`
 
-setTimeout(()=>{
-photo3.classList.add("reveal")
-typeWriter("The moment I realized you are the one and I don't wanna lose you ever Rasamalai ❤️",text3)
-},6000)
+const m2=`This was the moment I started feeling romantically for you and my heart started to lose its track…
 
-/* ending scene */
+It started to beat for only one person and that's you my baby ❤️`
 
-function ending(){
+const m3=`The moment I realized you are the one…
 
-createStars()
+and I don't wanna lose you ever rasmalai ❤️`
 
-document.getElementById("stars").style.display="block"
+setTimeout(()=>{typeText(m1,msg1)},1000)
+setTimeout(()=>{typeText(m2,msg2)},6000)
+setTimeout(()=>{typeText(m3,msg3)},11000)
 
-setTimeout(()=>{
-document.getElementById("hugScene").style.display="block"
-},2000)
+/* SCROLL REVEAL */
 
-setTimeout(()=>{
-final.innerHTML="<span class='neon'>No matter what path this story takes… I still choose you ❤️</span>"
-heartExplosion()
-},4200)
+const sections=document.querySelectorAll(".section")
+const polaroids=document.querySelectorAll(".polaroid")
+
+window.addEventListener("scroll",()=>{
+
+sections.forEach((sec,i)=>{
+
+let pos=sec.getBoundingClientRect().top
+
+if(pos<window.innerHeight-150){
+
+sec.classList.add("active")
+
+if(polaroids[i]) polaroids[i].classList.add("show")
 
 }
 
-/* star generator */
+})
 
-function createStars(){
+const constellation=document.querySelector(".constellation")
+if(constellation){
 
-const container=document.getElementById("stars")
+let pos=constellation.getBoundingClientRect().top
 
-for(let i=0;i<120;i++){
+if(pos<window.innerHeight-200){
 
-const star=document.createElement("div")
-
-star.className="star"
-
-star.style.left=Math.random()*100+"%"
-star.style.top=Math.random()*100+"%"
-
-container.appendChild(star)
+document.querySelectorAll(".star-photo").forEach(s=>s.classList.add("show"))
+document.querySelector(".lines").classList.add("show")
 
 }
 
 }
 
-/* hearts */
+})
 
-function heartExplosion(){
+/* END */
 
-for(let i=0;i<200;i++){
+function choose(){
 
-setTimeout(()=>{
+document.getElementById("result").innerHTML=
+"No matter what path this story takes…<br><br>I still choose you ❤️"
 
-const heart=document.createElement("div")
+document.getElementById("hug").classList.add("show")
 
+document.getElementById("name").classList.add("show")
+
+heartBurst()
+
+}
+
+function heartBurst(){
+
+for(let i=0;i<100;i++){
+
+let heart=document.createElement("div")
 heart.className="heart"
-
-heart.innerHTML="❤️"
-
-heart.style.left=Math.random()*100+"vw"
-heart.style.top="80vh"
-heart.style.fontSize=(Math.random()*35+12)+"px"
+heart.innerHTML="❤"
+heart.style.left=Math.random()*100+"%"
+heart.style.fontSize=(Math.random()*25+15)+"px"
+heart.style.animationDuration=(Math.random()*3+2)+"s"
 
 document.body.appendChild(heart)
 
-setTimeout(()=>heart.remove(),3000)
-
-},i*15)
+setTimeout(()=>heart.remove(),4000)
 
 }
 
 }
 
-</script>
-
-</body>
+</script></body>
 </html>
